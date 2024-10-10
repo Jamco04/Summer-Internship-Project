@@ -2,7 +2,7 @@
 ![ul-master-green](https://github.com/user-attachments/assets/0469a16d-87ac-454a-af42-cf2f1edddbb3)
 
 # UPSTaRT
-A repository for collaboration on UPSTaRT research project I worked on together with my classmate James Connolly.
+A repository for collaboration on UPSTaRT research project I worked on together with my classmate Adam Urban.
 
 Open-source contribution:
 
