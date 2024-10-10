@@ -17,6 +17,7 @@ library(RadioGx)
 library(PharmacoGx)
 
 
+
 # Read the TSV/CSV file for Datasets
 
 # https://www.cancerrxgene.org/downloads/drug_data?pathway=All&tissue=LUAD
@@ -192,7 +193,11 @@ ui <- fluidPage(
   
   # Navigation
   navbarPage(
-    "UPSTaRT",
+    tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;",
+      h3("Dataset Analysis Tool (BDS Summer internship)", style = "margin: 0;"),
+      h5("Created by James Connolly & Adam Urban", style = "margin: 0; font-weight: normal; font-size: 0.8em; margin-left: 50px;") 
+    ),
     # UI Tab 1: DATA
     tabPanel(
       "DATA OVERVIEW",
@@ -1233,3 +1238,4 @@ server <- function(input, output, session) {
 
 
 shinyApp(ui = ui, server = server)
+
