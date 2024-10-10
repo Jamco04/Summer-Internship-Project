@@ -419,13 +419,13 @@ ui <- fluidPage(
         div(
           class = "compact-select",
           radioButtons(
-          inputId = "cor_matrix_choice",
-          label = "Choose Dataset:",
-          choices = list(
-            "LUAD TCGA Pan Can Atlas 2018 Clinical Data" = "luad_data1",
-            "NSCLC-Radiomics Lung1 Clinical Data" = "nsclc_data2",
-            "LUAD (OncoSG, Nat Genet 2020)" = "luad_data4"
-          ))
+            inputId = "cor_matrix_choice",
+            label = "Choose Dataset:",
+            choices = list(
+              "LUAD TCGA Pan Can Atlas 2018 Clinical Data" = "luad_data1",
+              "NSCLC-Radiomics Lung1 Clinical Data" = "nsclc_data2",
+              "LUAD (OncoSG, Nat Genet 2020)" = "luad_data4"
+            ))
         ),
         class = "compact-select",
         plotOutput("corrPlot", width = "800px", height = "800px")
@@ -566,7 +566,6 @@ server <- function(input, output, session) {
       summary(data)
     })
   }
-  
   # Apply the functions to each data frame and name
   mapply(render_data_table, data_list, output_names)
   mapply(render_data_summary, data_list, summary_names)
@@ -1153,24 +1152,71 @@ server <- function(input, output, session) {
   
   
   # SERVER Tab 8: IMAGES
-  
   # Initialize reactiveVal to hold images
   images <- reactiveVal(NULL)
+  thumbnails <- reactiveVal(NULL)
+  
+  # Set the number of images to preload
+  preload_size <- 20  # Adjust this number based on your requirements
   
   # Observe the dataset_selector input
   observeEvent(input$dataset_selector, {
     selected_path <- datasets[[input$dataset_selector]]
     if (!is.null(selected_path)) {
       all_images <- scan_dicom_files(selected_path)
-      images(all_images)  # Update the reactiveVal images with all_images
+      
+      # Pre-load thumbnails for all images
+      thumbnail_paths <- lapply(all_images, function(img_path) {
+        thumbnail_path <- paste0(dirname(img_path), "/thumbnails/", basename(img_path))
+        if (!file.exists(thumbnail_path)) {
+          tryCatch({
+            thumb <- readDICOMFile(img_path)$img
+            thumb <- as.numeric(thumb)
+            thumb <- thumb / max(thumb)  # Scale to [0, 1]
+            thumb <- matrix(thumb, nrow = nrow(thumb), ncol = ncol(thumb))
+            writePNG(thumb, thumbnail_path)
+          }, error = function(e) {
+            warning(paste("Error creating thumbnail for", img_path, ": ", e$message))
+          })
+        }
+        thumbnail_path
+      })
+      
+      # Store images and thumbnails
+      images(all_images)
+      thumbnails(thumbnail_paths)
+      
+      # Update slider input with total number of images
       updateSliderInput(session, "image_slider", min = 1, max = length(all_images), value = 1)
     }
-  }, ignoreNULL = TRUE)
+  })
   
   # Render the image based on the slider input
   output$image_display <- renderImage({
     req(images())  # Ensure images() is not NULL before rendering
-    list(src = images()[input$image_slider], contentType = "image/png")
+    
+    # Get the image index based on the slider value
+    image_index <- input$image_slider
+    
+    # Ensure the index is within the bounds of the images array
+    if (image_index <= length(images())) {
+      return(list(src = images()[image_index], contentType = "image/png"))
+    }
+    return(NULL)
+  }, deleteFile = FALSE)
+  
+  # Render the thumbnail for the slider
+  output$thumbnail_display <- renderImage({
+    req(thumbnails())  # Ensure thumbnails() is not NULL before rendering
+    
+    # Get the thumbnail index based on the slider value
+    thumbnail_index <- input$image_slider
+    
+    # Ensure the index is within the bounds of the thumbnails array
+    if (thumbnail_index <= length(thumbnails())) {
+      return(list(src = thumbnails()[thumbnail_index], contentType = "image/png"))
+    }
+    return(NULL)
   }, deleteFile = FALSE)
   
   
