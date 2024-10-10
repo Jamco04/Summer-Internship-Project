@@ -195,8 +195,7 @@ ui <- fluidPage(
   navbarPage(
     tags$div(
       style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;",
-      h3("Dataset Analysis Tool (BDS Summer internship)", style = "margin: 0;"),
-      h5("Created by James Connolly & Adam Urban", style = "margin: 0; font-weight: normal; font-size: 0.8em; margin-left: 50px;") 
+      h3("Dataset Analysis Tool (BDS Summer internship)", style = "margin: 0;")
     ),
     # UI Tab 1: DATA
     tabPanel(
@@ -539,9 +538,37 @@ ui <- fluidPage(
     # UI Tab 8: REPORT
     tabPanel("REPORT", 
              h3("Research Report", style = "background-color: #f0f0f0; color: #333; padding: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"),
-             mainPanel(includeMarkdown("www/Report.md")))
+             mainPanel(includeMarkdown("www/Report.md"))),
     
-  )
+    tabPanel("Created by James Connolly & Adam Urban",
+             fluidRow(
+               column(
+                 6,  # Left column for the first image
+                 div(
+                   style = "text-align: center;",  # Center the image and links
+                   img(src = "cv_img.jpg", alt = "CV Image", style = "width: 400px; height: 600px;"),  # James' image
+                   br(),
+                   a("James' GitHub", href = "https://github.com/Jamco04", class = "btn btn-primary", target = "_blank"),  # GitHub button for James
+                   br(), br(),
+                   a("James' LinkedIn", href = "https://www.linkedin.com/in/james-connolly-0693b02b7/", class = "btn btn-info", target = "_blank")  # LinkedIn button for James
+                 )
+               ),
+               column(
+                 6,  # Right column for Adam's image and links
+                 div(
+                   style = "text-align: center;",  # Center the image and links
+                   img(src = "adam_img.png", alt = "Adam Image", style = "width: 400px; height: 600px;"),  # Adam's image
+                   br(),
+                   a("Adam's GitHub", href = "https://github.com/adamurban04", class = "btn btn-primary", target = "_blank"),  # GitHub button for Adam
+                   br(), br(),
+                   a("Adam's LinkedIn", href = "https://www.linkedin.com/in/your-linkedin", class = "btn btn-info", target = "_blank")  # LinkedIn button for Adam
+                 )
+               )
+             )
+             )
+    )
+    
+  
 )
 
 # Define server function
