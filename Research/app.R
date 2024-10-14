@@ -17,7 +17,6 @@ library(RadioGx)
 library(PharmacoGx)
 
 
-
 # Read the TSV/CSV file for Datasets
 
 # https://www.cancerrxgene.org/downloads/drug_data?pathway=All&tissue=LUAD
@@ -539,37 +538,35 @@ ui <- fluidPage(
     tabPanel("REPORT", 
              h3("Research Report", style = "background-color: #f0f0f0; color: #333; padding: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"),
              mainPanel(includeMarkdown("www/Report.md"))),
-    
+    # UI Tab 9: CREATED BY
     tabPanel("Created by James Connolly & Adam Urban",
              fluidRow(
                column(
                  6,  # Left column for the first image
                  div(
-                   style = "text-align: center;",  # Center the image and links
-                   img(src = "cv_img.jpg", alt = "CV Image", style = "width: 400px; height: 600px;"),  # James' image
-                   br(),
-                   a("James' GitHub", href = "https://github.com/Jamco04", class = "btn btn-primary", target = "_blank"),  # GitHub button for James
+                   style = "text-align: center;", 
+                   img(src = "cv_img.jpg", alt = "CV Image", style = "width: 400px; height: 600px;"),  
                    br(), br(),
-                   a("James' LinkedIn", href = "https://www.linkedin.com/in/james-connolly-0693b02b7/", class = "btn btn-info", target = "_blank")  # LinkedIn button for James
+                   a("James' GitHub", href = "https://github.com/Jamco04", style = "background-color: orange; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank"),  
+                   a("James' LinkedIn", href = "https://www.linkedin.com/in/james-connolly-0693b02b7/", style = "background-color: royalblue; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank")  
+                 )),
+                 column(
+                   6,  # Right column for (second) Adam's image and links
+                   div(
+                     style = "text-align: center;",  
+                     img(src = "adam_img.png", alt = "Adam Image", style = "width: 400px; height: 600px;"),  
+                     br(), br(),
+                     a("Adam's GitHub", href = "https://github.com/adamurban04", style = "background-color: orange; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank"),  
+                     a("Adam's LinkedIn", href = "https://www.linkedin.com/in/adamurban73/", style = "background-color: royalblue; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank")  
+                   )
                  )
-               ),
-               column(
-                 6,  # Right column for Adam's image and links
-                 div(
-                   style = "text-align: center;",  # Center the image and links
-                   img(src = "adam_img.png", alt = "Adam Image", style = "width: 400px; height: 600px;"),  # Adam's image
-                   br(),
-                   a("Adam's GitHub", href = "https://github.com/adamurban04", class = "btn btn-primary", target = "_blank"),  # GitHub button for Adam
-                   br(), br(),
-                   a("Adam's LinkedIn", href = "https://www.linkedin.com/in/your-linkedin", class = "btn btn-info", target = "_blank")  # LinkedIn button for Adam
-                 )
-               )
+                 
              )
              )
-    )
+             )
+  )
+
     
-  
-)
 
 # Define server function
 server <- function(input, output, session) {
