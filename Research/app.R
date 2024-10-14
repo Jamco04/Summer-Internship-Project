@@ -547,7 +547,7 @@ ui <- fluidPage(
                    style = "text-align: center;", 
                    img(src = "cv_img.jpg", alt = "CV Image", style = "width: 400px; height: 600px;"),  
                    br(), br(),
-                   a("James' GitHub", href = "https://github.com/Jamco04", style = "background-color: orange; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank"),  
+                   a("James' GitHub", href = "https://github.com/Jamco04", style = "background-color: orange; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank"),  
                    a("James' LinkedIn", href = "https://www.linkedin.com/in/james-connolly-0693b02b7/", style = "background-color: royalblue; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank")  
                  )),
                  column(
@@ -556,7 +556,7 @@ ui <- fluidPage(
                      style = "text-align: center;",  
                      img(src = "adam_img.png", alt = "Adam Image", style = "width: 400px; height: 600px;"),  
                      br(), br(),
-                     a("Adam's GitHub", href = "https://github.com/adamurban04", style = "background-color: orange; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank"),  
+                     a("Adam's GitHub", href = "https://github.com/adamurban04", style = "background-color: orange; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank"),  
                      a("Adam's LinkedIn", href = "https://www.linkedin.com/in/adamurban73/", style = "background-color: royalblue; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;", target = "_blank")  
                    )
                  )
